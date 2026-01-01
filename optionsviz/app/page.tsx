@@ -70,7 +70,7 @@ export default function Home() {
             {/* Actions */}
             <div className="flex items-center gap-3">
               <a
-                href="https://github.com/yourusername/options-greeks-visualizer"
+                href="https://github.com/azee-ka/options-greeks-visualizer"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-xl bg-zinc-900/50 border border-zinc-800 hover:border-cyan-500/50 transition-all hover:shadow-[0_0_20px_rgba(6,182,212,0.1)]"
@@ -261,46 +261,37 @@ export default function Home() {
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-zinc-800/50 bg-black/40 backdrop-blur-xl mt-20">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
-                  <Sparkles className="text-white" size={20} />
-                </div>
-                <span className="font-bold text-gradient">OptionsSurface</span>
-              </div>
-              <p className="text-sm text-zinc-500 leading-relaxed">
-                Advanced options analytics powered by Black-Scholes mathematics and real-time 3D visualization.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-white mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm text-zinc-500">
-                <li><a href="#" className="hover:text-cyan-400 transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-cyan-400 transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-cyan-400 transition-colors">Tutorials</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold text-white mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm text-zinc-500">
-                <li><a href="#" className="hover:text-cyan-400 transition-colors">GitHub</a></li>
-                <li><a href="#" className="hover:text-cyan-400 transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-cyan-400 transition-colors">Discord</a></li>
-              </ul>
-            </div>
+{/* Footer */}
+<footer className="border-t border-zinc-800/50 bg-black/40 backdrop-blur-xl mt-20">
+  <div className="max-w-7xl mx-auto px-6 py-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
+            <Sparkles className="text-white" size={20} />
           </div>
-          
-          <div className="mt-12 pt-8 border-t border-zinc-800/50 text-center text-sm text-zinc-600">
-            <p>© 2025 OptionsSurface. Built with React, Three.js, and Black-Scholes mathematics.</p>
-          </div>
+          <span className="font-bold text-gradient">OptionsSurface</span>
         </div>
-      </footer>
+        <p className="text-sm text-zinc-500 leading-relaxed">
+          Advanced options analytics powered by Black-Scholes mathematics and real-time 3D visualization.
+        </p>
+      </div>
+      
+      <div>
+        <h4 className="font-semibold text-white mb-4">Resources</h4>
+        <ul className="space-y-2 text-sm text-zinc-500">
+          <li><a href="/docs" className="hover:text-cyan-400 transition-colors">Documentation</a></li>
+          <li><a href="https://github.com/azee-ka/options-greeks-visualizer" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">GitHub</a></li>
+          <li><a href="/docs#tutorials" className="hover:text-cyan-400 transition-colors">Tutorials</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div className="mt-12 pt-8 border-t border-zinc-800/50 text-center text-sm text-zinc-600">
+      <p>© 2025 OptionsSurface. Built with React, Three.js, and Black-Scholes mathematics.</p>
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
