@@ -9,6 +9,7 @@ import { Box, Sparkles } from 'lucide-react';
 
 interface Surface3DProps {
   params: Omit<OptionParams, 'K' | 'T'>;
+  isDarkMode: boolean;
 }
 
 function OptionSurface({ params }: Surface3DProps) {
@@ -95,46 +96,58 @@ function OptionSurface({ params }: Surface3DProps) {
   );
 }
 
-export default function Surface3D({ params }: Surface3DProps) {
+export default function Surface3D({ params, isDarkMode }: Surface3DProps) {
   return (
-    <div className="neo-card p-8 space-y-6">
+    <div className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-8 space-y-6`}>
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h2 className={`text-2xl font-bold flex items-center gap-3 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             <Box className="text-violet-400" size={24} />
             3D Volatility Surface
           </h2>
-          <p className="text-sm text-zinc-500 mt-1">Interactive price visualization</p>
+          <p className={`text-sm mt-1 ${isDarkMode ? 'text-zinc-500' : 'text-gray-500'}`}>Interactive price visualization</p>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20">
+        <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${
+          isDarkMode 
+            ? 'bg-gradient-to-r from-cyan-500/10 to-violet-500/10 border-cyan-500/20' 
+            : 'bg-gradient-to-r from-cyan-500/20 to-violet-500/20 border-cyan-500/30'
+        }`}>
           <div className="w-3 h-3 rounded bg-gradient-to-r from-cyan-400 to-violet-400" />
-          <span className="text-xs text-zinc-400">Price Surface</span>
+          <span className={`text-xs ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Price Surface</span>
         </div>
       </div>
       
-      <div className="h-[500px] rounded-xl overflow-hidden border border-zinc-800/50 bg-black/40 relative">
+      <div className={`h-[500px] rounded-xl overflow-hidden border relative ${
+        isDarkMode ? 'border-zinc-800/50 bg-black/40' : 'border-gray-200/50 bg-white/60'
+      }`}>
         {/* Glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 pointer-events-none" />
+        <div className={`absolute inset-0 pointer-events-none ${
+          isDarkMode 
+            ? 'bg-gradient-to-br from-cyan-500/5 to-violet-500/5' 
+            : 'bg-gradient-to-br from-cyan-500/10 to-violet-500/10'
+        }`} />
         
         <Canvas
           camera={{ position: [25, 25, 25], fov: 50 }}
-          style={{ background: '#000000' }}
+          style={{ background: isDarkMode ? '#000000' : '#f9fafb' }}
         >
-          <ambientLight intensity={0.6} />
-          <pointLight position={[10, 10, 10]} intensity={1.2} color="#06b6d4" />
-          <pointLight position={[-10, -10, -10]} intensity={0.6} color="#8b5cf6" />
-          <pointLight position={[0, 10, 0]} intensity={0.4} color="#22d3ee" />
+          <ambientLight intensity={isDarkMode ? 0.6 : 0.8} />
+          <pointLight position={[10, 10, 10]} intensity={isDarkMode ? 1.2 : 1.4} color="#06b6d4" />
+          <pointLight position={[-10, -10, -10]} intensity={isDarkMode ? 0.6 : 0.8} color="#8b5cf6" />
+          <pointLight position={[0, 10, 0]} intensity={isDarkMode ? 0.4 : 0.6} color="#22d3ee" />
           
           <Grid
             args={[20, 20]}
-            cellColor="#1f1f23"
-            sectionColor="#2f2f35"
+            cellColor={isDarkMode ? '#1f1f23' : '#e5e7eb'}
+            sectionColor={isDarkMode ? '#2f2f35' : '#d1d5db'}
             fadeDistance={50}
             fadeStrength={1}
             position={[0, 0, -5]}
           />
           
-          <OptionSurface params={params} />
+          <OptionSurface params={params} isDarkMode={isDarkMode} />
           
           <Text
             position={[-12, 0, -5]}
@@ -178,7 +191,9 @@ export default function Surface3D({ params }: Surface3DProps) {
         </Canvas>
       </div>
       
-      <div className="flex items-center justify-between text-xs text-zinc-500 px-4">
+      <div className={`flex items-center justify-between text-xs px-4 ${
+        isDarkMode ? 'text-zinc-500' : 'text-gray-500'
+      }`}>
         <div className="flex items-center gap-2">
           <Sparkles size={14} className="text-cyan-400" />
           <span>Drag to rotate • Scroll to zoom • Right-click to pan</span>

@@ -1,7 +1,7 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { 
   Sparkles,
   Github,
@@ -11,17 +11,17 @@ import {
   BookOpen,
   Users,
   Rocket,
-  Coffee,
   Star,
   GitBranch,
   Package,
   Zap,
-  Shield,
-  Globe,
-  Mail
+  Shield
 } from 'lucide-react';
+import Header from '@/components/Header';
 
 export default function AboutPage() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
   const techStack = [
     { name: 'Next.js 15', description: 'React framework with App Router', icon: Rocket },
     { name: 'TypeScript', description: 'Type-safe development', icon: Code },
@@ -92,47 +92,28 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-zinc-100">
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDarkMode ? 'bg-black text-zinc-100' : 'bg-gray-50 text-gray-900'
+    }`}>
       {/* Background */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px)
+            linear-gradient(${isDarkMode ? 'rgba(6, 182, 212, 0.03)' : 'rgba(6, 182, 212, 0.08)'} 1px, transparent 1px),
+            linear-gradient(90deg, ${isDarkMode ? 'rgba(6, 182, 212, 0.03)' : 'rgba(6, 182, 212, 0.08)'} 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
         }} />
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl" />
+        <div className={`absolute top-0 right-1/4 w-96 h-96 ${
+          isDarkMode ? 'bg-cyan-500/10' : 'bg-cyan-500/20'
+        } rounded-full blur-3xl`} />
+        <div className={`absolute bottom-0 left-1/4 w-96 h-96 ${
+          isDarkMode ? 'bg-violet-500/10' : 'bg-violet-500/20'
+        } rounded-full blur-3xl`} />
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-2xl bg-black/40 border-b border-zinc-800/50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-4">
-              <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
-                <Sparkles className="text-white" size={20} />
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-gradient">OptionsSurface</h1>
-                <p className="text-xs text-zinc-500">About the Project</p>
-              </div>
-            </Link>
-            <div className="flex items-center gap-3">
-              <Link href="/features" className="text-zinc-400 hover:text-zinc-300 text-sm">
-                Features
-              </Link>
-              <Link href="/docs" className="text-zinc-400 hover:text-zinc-300 text-sm">
-                Docs
-              </Link>
-              <Link href="/" className="neo-btn-secondary">
-                Launch App
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
 
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
@@ -142,16 +123,22 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-sm mb-6">
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm mb-6 ${
+              isDarkMode 
+                ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' 
+                : 'bg-violet-500/20 border-violet-500/30 text-violet-700'
+            }`}>
               <Heart size={16} />
               <span>Made with passion for finance</span>
             </div>
             <h1 className="text-6xl md:text-7xl font-bold mb-6">
               <span className="text-gradient">About</span>
               <br />
-              <span className="text-white">OptionsSurface</span>
+              <span className={isDarkMode ? 'text-white' : 'text-gray-900'}>OptionsSurface</span>
             </h1>
-            <p className="text-xl text-zinc-400 leading-relaxed mb-8">
+            <p className={`text-xl leading-relaxed mb-8 ${
+              isDarkMode ? 'text-zinc-400' : 'text-gray-600'
+            }`}>
               A modern, open-source platform for options analysis, education, and visualization. Built to make derivatives accessible to everyone.
             </p>
             <div className="flex items-center justify-center gap-4">
@@ -159,7 +146,7 @@ export default function AboutPage() {
                 href="https://github.com/azee-ka/options-greeks-visualizer" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="neo-btn"
+                className="neo-btn-primary flex items-center gap-2"
               >
                 <Github size={20} />
                 <span>View on GitHub</span>
@@ -170,7 +157,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-24 bg-zinc-950/50">
+      <section className={`py-24 ${isDarkMode ? 'bg-zinc-950/50' : 'bg-gray-100/50'}`}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -178,19 +165,23 @@ export default function AboutPage() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="neo-card p-12"
+              className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-12`}
             >
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
                   <Lightbulb className="text-white" size={32} />
                 </div>
-                <h2 className="text-4xl font-bold text-white">Purpose</h2>
+                <h2 className={`text-4xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Purpose</h2>
               </div>
-              <p className="text-xl text-zinc-300 leading-relaxed mb-6">
+              <p className={`text-xl leading-relaxed mb-6 ${
+                isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+              }`}>
                 Options trading shouldn't be reserved for Wall Street professionals. OptionsSurface democratizes access to institutional-grade analytics tools, making them free and accessible to students, traders, and developers worldwide.
               </p>
-              <p className="text-lg text-zinc-400 leading-relaxed">
-              OptionsSurface provides professional-grade options analytics tools as a free, open-source platform. All calculations run client-side with no data collection or account requirements.
+              <p className={`text-lg leading-relaxed ${
+                isDarkMode ? 'text-zinc-400' : 'text-gray-600'
+              }`}>
+                OptionsSurface provides professional-grade options analytics tools as a free, open-source platform. All calculations run client-side with no data collection or account requirements.
               </p>
             </motion.div>
           </div>
@@ -201,8 +192,8 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Core Principles</h2>
-            <p className="text-xl text-zinc-400">What drives our development</p>
+            <h2 className={`text-5xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Core Principles</h2>
+            <p className={`text-xl ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>What drives our development</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -215,13 +206,17 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
                   viewport={{ once: true }}
-                  className={`neo-card p-8 border-${principle.color}-500/20 hover:border-${principle.color}-500/40 transition-all`}
+                  className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-8 border-${principle.color}-500/${isDarkMode ? '20' : '30'} hover:border-${principle.color}-500/${isDarkMode ? '40' : '50'} transition-all`}
                 >
-                  <div className={`w-14 h-14 rounded-2xl bg-${principle.color}-500/10 border border-${principle.color}-500/20 flex items-center justify-center mb-6`}>
+                  <div className={`w-14 h-14 rounded-2xl border flex items-center justify-center mb-6 ${
+                    isDarkMode 
+                      ? `bg-${principle.color}-500/10 border-${principle.color}-500/20` 
+                      : `bg-${principle.color}-500/20 border-${principle.color}-500/30`
+                  }`}>
                     <Icon className={`text-${principle.color}-400`} size={28} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{principle.title}</h3>
-                  <p className="text-zinc-400 leading-relaxed">{principle.description}</p>
+                  <h3 className={`text-2xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{principle.title}</h3>
+                  <p className={`leading-relaxed ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>{principle.description}</p>
                 </motion.div>
               );
             })}
@@ -230,11 +225,11 @@ export default function AboutPage() {
       </section>
 
       {/* Tech Stack */}
-      <section className="py-24 bg-zinc-950/50">
+      <section className={`py-24 ${isDarkMode ? 'bg-zinc-950/50' : 'bg-gray-100/50'}`}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Technology Stack</h2>
-            <p className="text-xl text-zinc-400">Built with modern, cutting-edge tools</p>
+            <h2 className={`text-5xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Technology Stack</h2>
+            <p className={`text-xl ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Built with modern, cutting-edge tools</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -247,17 +242,17 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
                   viewport={{ once: true }}
-                  className="neo-card p-6 hover:border-cyan-500/30 transition-all group"
+                  className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-6 hover:border-cyan-500/${isDarkMode ? '30' : '40'} transition-all group`}
                 >
                   <div className="flex items-center gap-4 mb-3">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                       <Icon className="text-white" size={24} />
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold text-white">{tech.name}</h3>
+                      <h3 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{tech.name}</h3>
                     </div>
                   </div>
-                  <p className="text-sm text-zinc-400">{tech.description}</p>
+                  <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>{tech.description}</p>
                 </motion.div>
               );
             })}
@@ -269,8 +264,8 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-white mb-4">Development Journey</h2>
-            <p className="text-xl text-zinc-400">From concept to reality</p>
+            <h2 className={`text-5xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Development Journey</h2>
+            <p className={`text-xl ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>From concept to reality</p>
           </div>
 
           <div className="space-y-8">
@@ -291,10 +286,10 @@ export default function AboutPage() {
                     <div className="w-0.5 h-full bg-gradient-to-b from-cyan-500/50 to-violet-500/50 mt-2" />
                   )}
                 </div>
-                <div className="neo-card p-6 flex-1 mb-8">
+                <div className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-6 flex-1 mb-8`}>
                   <div className="text-sm text-cyan-400 font-semibold mb-2">{milestone.date}</div>
-                  <h3 className="text-xl font-bold text-white mb-2">{milestone.title}</h3>
-                  <p className="text-zinc-400">{milestone.description}</p>
+                  <h3 className={`text-xl font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>{milestone.title}</h3>
+                  <p className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'}>{milestone.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -303,18 +298,22 @@ export default function AboutPage() {
       </section>
 
       {/* Open Source */}
-      <section className="py-24 bg-zinc-950/50">
+      <section className={`py-24 ${isDarkMode ? 'bg-zinc-950/50' : 'bg-gray-100/50'}`}>
         <div className="max-w-4xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="neo-card p-12 text-center border-2 border-violet-500/30"
+            className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-12 text-center border-2 ${
+              isDarkMode ? 'border-violet-500/30' : 'border-violet-500/40'
+            }`}
           >
             <Github className="w-20 h-20 text-violet-400 mx-auto mb-6" />
-            <h2 className="text-4xl font-bold text-white mb-4">Free & Open Source</h2>
-            <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
+            <h2 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Free & Open Source</h2>
+            <p className={`text-xl mb-8 max-w-2xl mx-auto ${
+              isDarkMode ? 'text-zinc-400' : 'text-gray-600'
+            }`}>
               OptionsSurface is MIT licensed. Use it, learn from it, modify it, or contribute to it. The entire codebase is available on GitHub.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -322,7 +321,7 @@ export default function AboutPage() {
                 href="https://github.com/azee-ka/options-greeks-visualizer" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="neo-btn"
+                className="neo-btn-primary flex items-center gap-2"
               >
                 <Github size={20} />
                 <span>View Repository</span>
@@ -331,7 +330,7 @@ export default function AboutPage() {
                 href="https://github.com/azee-ka/options-greeks-visualizer/issues" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="neo-btn-secondary"
+                className={`flex items-center gap-2 ${isDarkMode ? 'neo-btn-secondary' : 'neo-btn-secondary-light'}`}
               >
                 <GitBranch size={20} />
                 <span>Contribute</span>
@@ -344,8 +343,8 @@ export default function AboutPage() {
       {/* Contact/Community */}
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Get Involved</h2>
-          <p className="text-xl text-zinc-400 mb-12">
+          <h2 className={`text-4xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Get Involved</h2>
+          <p className={`text-xl mb-12 ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>
             Questions, feedback, or want to contribute? We'd love to hear from you.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -353,31 +352,31 @@ export default function AboutPage() {
               href="https://github.com/azee-ka/options-greeks-visualizer/discussions" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neo-card p-6 hover:border-cyan-500/30 transition-all group"
+              className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-6 hover:border-cyan-500/${isDarkMode ? '30' : '40'} transition-all group`}
             >
               <Users className="w-12 h-12 text-cyan-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-lg font-bold text-white mb-2">Discussions</h3>
-              <p className="text-sm text-zinc-400">Join the community</p>
+              <h3 className={`text-lg font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Discussions</h3>
+              <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Join the community</p>
             </a>
             <a 
               href="https://github.com/azee-ka/options-greeks-visualizer/issues" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neo-card p-6 hover:border-violet-500/30 transition-all group"
+              className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-6 hover:border-violet-500/${isDarkMode ? '30' : '40'} transition-all group`}
             >
               <Code className="w-12 h-12 text-violet-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-lg font-bold text-white mb-2">Issues</h3>
-              <p className="text-sm text-zinc-400">Report bugs or request features</p>
+              <h3 className={`text-lg font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Issues</h3>
+              <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Report bugs or request features</p>
             </a>
             <a 
               href="https://github.com/azee-ka" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neo-card p-6 hover:border-emerald-500/30 transition-all group"
+              className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-6 hover:border-emerald-500/${isDarkMode ? '30' : '40'} transition-all group`}
             >
               <Github className="w-12 h-12 text-emerald-400 mx-auto mb-4 group-hover:scale-110 transition-transform" />
-              <h3 className="text-lg font-bold text-white mb-2">GitHub</h3>
-              <p className="text-sm text-zinc-400">Follow development</p>
+              <h3 className={`text-lg font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>GitHub</h3>
+              <p className={`text-sm ${isDarkMode ? 'text-zinc-400' : 'text-gray-600'}`}>Follow development</p>
             </a>
           </div>
         </div>

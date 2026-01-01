@@ -8,33 +8,38 @@ import { motion } from 'framer-motion';
 interface OptionCalculatorProps {
   params: OptionParams;
   onChange: (params: OptionParams) => void;
+  isDarkMode: boolean;
 }
 
-export default function OptionCalculator({ params, onChange }: OptionCalculatorProps) {
+export default function OptionCalculator({ params, onChange, isDarkMode }: OptionCalculatorProps) {
   const handleChange = (field: keyof OptionParams, value: string | number) => {
     onChange({ ...params, [field]: value });
   };
 
   return (
-    <div className="neo-card p-8 space-y-8">
+    <div className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-8 space-y-8`}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h2 className={`text-2xl font-bold flex items-center gap-3 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             <Sparkles className="text-cyan-400" size={24} />
             Option Parameters
           </h2>
-          <p className="text-sm text-zinc-500 mt-1">Configure your option contract</p>
+          <p className={`text-sm mt-1 ${isDarkMode ? 'text-zinc-500' : 'text-gray-500'}`}>Configure your option contract</p>
         </div>
         
         {/* Call/Put Toggle */}
-        <div className="flex gap-2 p-1 rounded-xl bg-black/60 border border-zinc-800">
+        <div className={`flex gap-2 p-1 rounded-xl border ${
+          isDarkMode ? 'bg-black/60 border-zinc-800' : 'bg-white/60 border-gray-200'
+        }`}>
           <button
             onClick={() => handleChange('type', 'call')}
             className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 ${
               params.type === 'call'
                 ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]'
-                : 'text-zinc-400 hover:text-white'
+                : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <TrendingUp size={16} />
@@ -45,7 +50,7 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
             className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 ${
               params.type === 'put'
                 ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-[0_0_20px_rgba(244,63,94,0.3)]'
-                : 'text-zinc-400 hover:text-white'
+                : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <TrendingDown size={16} />
@@ -58,8 +63,10 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Spot Price */}
         <div className="space-y-3">
-          <label className="flex items-center justify-between text-sm font-medium">
-            <span className="flex items-center gap-2 text-zinc-300">
+          <label className={`flex items-center justify-between text-sm font-medium ${
+            isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+          }`}>
+            <span className="flex items-center gap-2">
               <DollarSign size={16} className="text-cyan-400" />
               Spot Price (S)
             </span>
@@ -71,7 +78,7 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
               type="number"
               value={params.S}
               onChange={(e) => handleChange('S', parseFloat(e.target.value) || 0)}
-              className="neo-input w-full pl-10"
+              className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full pl-10`}
               step="0.01"
             />
           </div>
@@ -88,8 +95,10 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
 
         {/* Strike Price */}
         <div className="space-y-3">
-          <label className="flex items-center justify-between text-sm font-medium">
-            <span className="flex items-center gap-2 text-zinc-300">
+          <label className={`flex items-center justify-between text-sm font-medium ${
+            isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+          }`}>
+            <span className="flex items-center gap-2">
               <Zap size={16} className="text-violet-400" />
               Strike Price (K)
             </span>
@@ -101,7 +110,7 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
               type="number"
               value={params.K}
               onChange={(e) => handleChange('K', parseFloat(e.target.value) || 0)}
-              className="neo-input w-full pl-10"
+              className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full pl-10`}
               step="0.01"
             />
           </div>
@@ -118,8 +127,10 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
 
         {/* Volatility */}
         <div className="space-y-3">
-          <label className="flex items-center justify-between text-sm font-medium">
-            <span className="flex items-center gap-2 text-zinc-300">
+          <label className={`flex items-center justify-between text-sm font-medium ${
+            isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+          }`}>
+            <span className="flex items-center gap-2">
               <Percent size={16} className="text-fuchsia-400" />
               Volatility (σ)
             </span>
@@ -129,7 +140,7 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
             type="number"
             value={(params.sigma * 100).toFixed(1)}
             onChange={(e) => handleChange('sigma', parseFloat(e.target.value) / 100 || 0)}
-            className="neo-input w-full"
+            className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full`}
             step="0.1"
             min="0.1"
             max="200"
@@ -147,8 +158,10 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
 
         {/* Time to Expiration */}
         <div className="space-y-3">
-          <label className="flex items-center justify-between text-sm font-medium">
-            <span className="flex items-center gap-2 text-zinc-300">
+          <label className={`flex items-center justify-between text-sm font-medium ${
+            isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+          }`}>
+            <span className="flex items-center gap-2">
               <Clock size={16} className="text-amber-400" />
               Time to Expiry (T)
             </span>
@@ -158,7 +171,7 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
             type="number"
             value={params.T.toFixed(3)}
             onChange={(e) => handleChange('T', parseFloat(e.target.value) || 0)}
-            className="neo-input w-full"
+            className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full`}
             step="0.01"
             min="0.01"
             max="2"
@@ -176,8 +189,10 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
 
         {/* Risk-free Rate */}
         <div className="space-y-3">
-          <label className="flex items-center justify-between text-sm font-medium">
-            <span className="flex items-center gap-2 text-zinc-300">
+          <label className={`flex items-center justify-between text-sm font-medium ${
+            isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+          }`}>
+            <span className="flex items-center gap-2">
               <TrendingUp size={16} className="text-emerald-400" />
               Risk-free Rate (r)
             </span>
@@ -187,7 +202,7 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
             type="number"
             value={(params.r * 100).toFixed(2)}
             onChange={(e) => handleChange('r', parseFloat(e.target.value) / 100 || 0)}
-            className="neo-input w-full"
+            className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full`}
             step="0.01"
             min="0"
             max="20"
@@ -205,7 +220,9 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
 
         {/* Quick Presets */}
         <div className="space-y-3">
-          <label className="block text-sm font-medium text-zinc-300">
+          <label className={`block text-sm font-medium ${
+            isDarkMode ? 'text-zinc-300' : 'text-gray-700'
+          }`}>
             Quick Presets
           </label>
           <div className="flex gap-2">
@@ -224,7 +241,9 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
                   sigma: 0.20,
                   type: params.type
                 })}
-                className="flex-1 neo-btn-secondary py-2 text-xs"
+                className={`flex-1 py-2 text-xs ${
+                  isDarkMode ? 'neo-btn-secondary' : 'neo-btn-secondary-light'
+                }`}
               >
                 {preset.label}
               </button>
@@ -234,24 +253,30 @@ export default function OptionCalculator({ params, onChange }: OptionCalculatorP
       </div>
 
       {/* Moneyness Indicator */}
-      <div className="relative p-6 rounded-xl bg-gradient-to-br from-zinc-900/50 to-black/50 border border-zinc-800/50">
+      <div className={`relative p-6 rounded-xl border ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-zinc-900/50 to-black/50 border-zinc-800/50' 
+          : 'bg-gradient-to-br from-gray-50/50 to-white/50 border-gray-200/50'
+      }`}>
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-zinc-400">Moneyness Status:</span>
+          <span className={`text-sm font-medium ${
+            isDarkMode ? 'text-zinc-400' : 'text-gray-600'
+          }`}>Moneyness Status:</span>
           <motion.span
             initial={{ scale: 0.95 }}
             animate={{ scale: 1 }}
-            className={`px-4 py-2 rounded-lg font-bold text-sm ${
+            className={`px-4 py-2 rounded-lg font-bold text-sm border ${
               params.type === 'call'
                 ? params.S > params.K
-                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
                   : params.S < params.K
-                  ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-                  : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                  ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+                  : 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'
                 : params.S < params.K
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
                 : params.S > params.K
-                ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
-                : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                ? 'bg-rose-500/20 text-rose-400 border-rose-500/30'
+                : 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'
             }`}
           >
             {params.S > params.K ? 'In-The-Money' : params.S < params.K ? 'Out-The-Money' : 'At-The-Money'}

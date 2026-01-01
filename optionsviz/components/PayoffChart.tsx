@@ -7,9 +7,10 @@ import { TrendingUp, BarChart3 } from 'lucide-react';
 
 interface PayoffChartProps {
   params: OptionParams;
+  isDarkMode: boolean;
 }
 
-export default function PayoffChart({ params }: PayoffChartProps) {
+export default function PayoffChart({ params, isDarkMode }: PayoffChartProps) {
   const payoffData = useMemo(() => {
     const data = [];
     const priceRange = params.S * 0.5;
@@ -48,18 +49,20 @@ export default function PayoffChart({ params }: PayoffChartProps) {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="neo-card p-4 space-y-2 text-xs border-cyan-500/30">
+        <div className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-4 space-y-2 text-xs ${
+          isDarkMode ? 'border-cyan-500/30' : 'border-cyan-500/40'
+        }`}>
           <div className="font-bold text-cyan-400 neo-number">
             Price: ${payload[0].payload.price.toFixed(2)}
           </div>
           <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-400">Current P&L:</span>
+            <span className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'}>Current P&L:</span>
             <span className={`neo-number font-bold ${payload[0].payload.pnlNow >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
               ${payload[0].payload.pnlNow.toFixed(2)}
             </span>
           </div>
           <div className="flex items-center justify-between gap-4">
-            <span className="text-zinc-400">Expiry P&L:</span>
+            <span className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'}>Expiry P&L:</span>
             <span className={`neo-number font-bold ${payload[0].payload.pnlExpiry >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
               ${payload[0].payload.pnlExpiry.toFixed(2)}
             </span>
@@ -75,30 +78,34 @@ export default function PayoffChart({ params }: PayoffChartProps) {
     : params.K - blackScholes(params).price;
 
   return (
-    <div className="neo-card p-8 space-y-6">
+    <div className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-8 space-y-6`}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+          <h2 className={`text-2xl font-bold flex items-center gap-3 ${
+            isDarkMode ? 'text-white' : 'text-gray-900'
+          }`}>
             <BarChart3 className="text-fuchsia-400" size={24} />
             Payoff Diagram
           </h2>
-          <p className="text-sm text-zinc-500 mt-1">Profit & Loss analysis</p>
+          <p className={`text-sm mt-1 ${isDarkMode ? 'text-zinc-500' : 'text-gray-500'}`}>Profit & Loss analysis</p>
         </div>
         <div className="flex gap-6 text-xs">
           <div className="flex items-center gap-2">
             <div className="w-3 h-1 rounded-full bg-cyan-400" style={{ boxShadow: '0 0 10px rgba(6, 182, 212, 0.5)' }} />
-            <span className="text-zinc-400">Current P&L</span>
+            <span className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'}>Current P&L</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-1 rounded-full bg-emerald-400" style={{ boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)' }} />
-            <span className="text-zinc-400">P&L at Expiry</span>
+            <span className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'}>P&L at Expiry</span>
           </div>
         </div>
       </div>
 
       {/* Chart */}
-      <div className="h-[400px] p-4 rounded-xl bg-black/40 border border-zinc-800/50">
+      <div className={`h-[400px] p-4 rounded-xl border ${
+        isDarkMode ? 'bg-black/40 border-zinc-800/50' : 'bg-white/60 border-gray-200/50'
+      }`}>
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={payoffData} margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
             <defs>
@@ -112,24 +119,32 @@ export default function PayoffChart({ params }: PayoffChartProps) {
               </linearGradient>
             </defs>
             
-            <CartesianGrid strokeDasharray="3 3" stroke="#27272a" opacity={0.3} />
+            <CartesianGrid 
+              strokeDasharray="3 3" 
+              stroke={isDarkMode ? '#27272a' : '#d4d4d8'} 
+              opacity={0.3} 
+            />
             
             <XAxis
               dataKey="price"
-              stroke="#52525b"
-              tick={{ fill: '#71717a', fontSize: 11 }}
+              stroke={isDarkMode ? '#52525b' : '#a1a1aa'}
+              tick={{ fill: isDarkMode ? '#71717a' : '#71717a', fontSize: 11 }}
               tickFormatter={(value) => `$${value.toFixed(0)}`}
             />
             
             <YAxis
-              stroke="#52525b"
-              tick={{ fill: '#71717a', fontSize: 11 }}
+              stroke={isDarkMode ? '#52525b' : '#a1a1aa'}
+              tick={{ fill: isDarkMode ? '#71717a' : '#71717a', fontSize: 11 }}
               tickFormatter={(value) => `$${value.toFixed(0)}`}
             />
             
             <Tooltip content={<CustomTooltip />} />
             
-            <ReferenceLine y={0} stroke="#3f3f46" strokeWidth={2} />
+            <ReferenceLine 
+              y={0} 
+              stroke={isDarkMode ? '#3f3f46' : '#a1a1aa'} 
+              strokeWidth={2} 
+            />
             
             <ReferenceLine
               x={params.S}
@@ -194,8 +209,12 @@ export default function PayoffChart({ params }: PayoffChartProps) {
           { label: 'Max Loss', value: `$${(blackScholes(params).price * 100).toFixed(2)}`, color: 'rose' },
           { label: 'Breakeven', value: `$${breakeven.toFixed(2)}`, color: 'violet' },
         ].map((metric) => (
-          <div key={metric.label} className="p-4 rounded-xl bg-black/40 border border-zinc-800/50 space-y-2">
-            <div className="text-xs text-zinc-500 uppercase tracking-wider">{metric.label}</div>
+          <div key={metric.label} className={`p-4 rounded-xl border space-y-2 ${
+            isDarkMode ? 'bg-black/40 border-zinc-800/50' : 'bg-white/60 border-gray-200/50'
+          }`}>
+            <div className={`text-xs uppercase tracking-wider ${
+              isDarkMode ? 'text-zinc-500' : 'text-gray-500'
+            }`}>{metric.label}</div>
             <div className={`neo-number text-xl font-bold text-${metric.color}-400`}>
               {metric.value}
             </div>
