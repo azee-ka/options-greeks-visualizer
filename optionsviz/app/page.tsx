@@ -62,9 +62,9 @@ export default function Home() {
 
             {/* Navigation */}
             <nav className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm text-zinc-400 hover:text-cyan-400 transition-colors">Features</a>
-              <a href="#about" className="text-sm text-zinc-400 hover:text-cyan-400 transition-colors">About</a>
-              <a href="#docs" className="text-sm text-zinc-400 hover:text-cyan-400 transition-colors">Docs</a>
+              <a href="/features" className="text-sm text-zinc-400 hover:text-cyan-400 transition-colors">Features</a>
+              <a href="/about" className="text-sm text-zinc-400 hover:text-cyan-400 transition-colors">About</a>
+              <a href="/docs" className="text-sm text-zinc-400 hover:text-cyan-400 transition-colors">Docs</a>
             </nav>
 
             {/* Actions */}
