@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { 
@@ -22,11 +21,12 @@ import {
   Cpu,
   Palette
 } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function FeaturesPage() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const [activeFeature, setActiveFeature] = useState(0);
+  const { isDarkMode } = useTheme();
 
   const heroFeatures = [
     {
@@ -205,7 +205,7 @@ export default function FeaturesPage() {
       </div>
 
       {/* Header */}
-      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Header />
 
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
@@ -430,6 +430,7 @@ export default function FeaturesPage() {
           </div>
         </div>
       </section>
+      <Footer isDarkMode={isDarkMode} />
     </div>
   );
 }

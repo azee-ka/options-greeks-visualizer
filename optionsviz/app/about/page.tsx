@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Sparkles,
@@ -17,10 +16,12 @@ import {
   Zap,
   Shield
 } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function AboutPage() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode } = useTheme();
 
   const techStack = [
     { name: 'Next.js 15', description: 'React framework with App Router', icon: Rocket },
@@ -85,7 +86,7 @@ export default function AboutPage() {
       description: 'Created comprehensive 15-section documentation covering theory to practice',
     },
     {
-      date: 'Jan 2025',
+      date: 'Jan 2026',
       title: 'Open Source Release',
       description: 'Released on GitHub with MIT license',
     },
@@ -113,7 +114,7 @@ export default function AboutPage() {
       </div>
 
       {/* Header */}
-      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Header />
 
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
@@ -123,14 +124,6 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm mb-6 ${
-              isDarkMode 
-                ? 'bg-violet-500/10 border-violet-500/20 text-violet-400' 
-                : 'bg-violet-500/20 border-violet-500/30 text-violet-700'
-            }`}>
-              <Heart size={16} />
-              <span>Made with passion for finance</span>
-            </div>
             <h1 className="text-6xl md:text-7xl font-bold mb-6">
               <span className="text-gradient">About</span>
               <br />
@@ -381,6 +374,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <Footer isDarkMode={isDarkMode} />
     </div>
   );
 }

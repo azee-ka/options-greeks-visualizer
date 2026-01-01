@@ -1,15 +1,44 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Sparkles, Github, Moon, Sun } from 'lucide-react';
+import { Sparkles, Github, Moon, Sun, Monitor } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 
-interface HeaderProps {
-  isDarkMode: boolean;
-  setIsDarkMode: (value: boolean) => void;
-}
+export default function Header() {
+  const { isDarkMode, themeMode, cycleTheme } = useTheme();
+  const pathname = usePathname();
 
-export default function Header({ isDarkMode, setIsDarkMode }: HeaderProps) {
+  const isActive = (path: string) => {
+    if (path === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(path);
+  };
+
+  const getThemeIcon = () => {
+    switch (themeMode) {
+      case 'dark':
+        return <Moon size={20} className="text-violet-400" />;
+      case 'light':
+        return <Sun size={20} className="text-amber-400" />;
+      case 'system':
+        return <Monitor size={20} className="text-cyan-400" />;
+    }
+  };
+
+  const getThemeLabel = () => {
+    switch (themeMode) {
+      case 'dark':
+        return 'Dark';
+      case 'light':
+        return 'Light';
+      case 'system':
+        return 'System';
+    }
+  };
+
   return (
     <header className={`sticky top-0 z-50 backdrop-blur-2xl border-b transition-colors duration-300 ${
       isDarkMode ? 'bg-black/40 border-zinc-800/50' : 'bg-white/40 border-gray-200/50'
@@ -35,18 +64,91 @@ export default function Header({ isDarkMode, setIsDarkMode }: HeaderProps) {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-          <Link href="/" className={`text-sm transition-colors ${
-              isDarkMode ? 'text-zinc-400 hover:text-cyan-400' : 'text-gray-600 hover:text-cyan-600'
-            }`}>Home</Link>
-            <Link href="/features" className={`text-sm transition-colors ${
-              isDarkMode ? 'text-zinc-400 hover:text-cyan-400' : 'text-gray-600 hover:text-cyan-600'
-            }`}>Features</Link>
-            <Link href="/about" className={`text-sm transition-colors ${
-              isDarkMode ? 'text-zinc-400 hover:text-cyan-400' : 'text-gray-600 hover:text-cyan-600'
-            }`}>About</Link>
-            <Link href="/docs" className={`text-sm transition-colors ${
-              isDarkMode ? 'text-zinc-400 hover:text-cyan-400' : 'text-gray-600 hover:text-cyan-600'
-            }`}>Docs</Link>
+            <Link 
+              href="/" 
+              className={`text-sm font-medium transition-all relative group ${
+                isActive('/')
+                  ? isDarkMode 
+                    ? 'text-cyan-400' 
+                    : 'text-cyan-600'
+                  : isDarkMode 
+                    ? 'text-zinc-400 hover:text-cyan-400' 
+                    : 'text-gray-600 hover:text-cyan-600'
+              }`}
+            >
+              Home
+              {isActive('/') && (
+                <motion.div
+                  layoutId="activeNav"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-400"
+                  style={{ boxShadow: '0 0 8px rgba(6, 182, 212, 0.5)' }}
+                />
+              )}
+            </Link>
+            <Link 
+              href="/features" 
+              className={`text-sm font-medium transition-all relative group ${
+                isActive('/features')
+                  ? isDarkMode 
+                    ? 'text-cyan-400' 
+                    : 'text-cyan-600'
+                  : isDarkMode 
+                    ? 'text-zinc-400 hover:text-cyan-400' 
+                    : 'text-gray-600 hover:text-cyan-600'
+              }`}
+            >
+              Features
+              {isActive('/features') && (
+                <motion.div
+                  layoutId="activeNav"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-400"
+                  style={{ boxShadow: '0 0 8px rgba(6, 182, 212, 0.5)' }}
+                />
+              )}
+            </Link>
+            <Link 
+              href="/about" 
+              className={`text-sm font-medium transition-all relative group ${
+                isActive('/about')
+                  ? isDarkMode 
+                    ? 'text-cyan-400' 
+                    : 'text-cyan-600'
+                  : isDarkMode 
+                    ? 'text-zinc-400 hover:text-cyan-400' 
+                    : 'text-gray-600 hover:text-cyan-600'
+              }`}
+            >
+              About
+              {isActive('/about') && (
+                <motion.div
+                  layoutId="activeNav"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-400"
+                  style={{ boxShadow: '0 0 8px rgba(6, 182, 212, 0.5)' }}
+                />
+              )}
+            </Link>
+            <Link 
+              href="/docs" 
+              className={`text-sm font-medium transition-all relative group ${
+                isActive('/docs')
+                  ? isDarkMode 
+                    ? 'text-cyan-400' 
+                    : 'text-cyan-600'
+                  : isDarkMode 
+                    ? 'text-zinc-400 hover:text-cyan-400' 
+                    : 'text-gray-600 hover:text-cyan-600'
+              }`}
+            >
+              Docs
+              {isActive('/docs') && (
+                <motion.div
+                  layoutId="activeNav"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-400"
+                  style={{ boxShadow: '0 0 8px rgba(6, 182, 212, 0.5)' }}
+                />
+              )}
+            </Link>
+            <Link href="/disclaimer" className="text-rose-400">Disclaimer</Link> {/* NEW */}
           </nav>
 
           {/* Actions */}
@@ -65,19 +167,41 @@ export default function Header({ isDarkMode, setIsDarkMode }: HeaderProps) {
                 isDarkMode ? 'text-zinc-400 hover:text-cyan-400' : 'text-gray-600 hover:text-cyan-600'
               }`} />
             </a>
+            
+            {/* 3-State Theme Toggle */}
             <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className={`p-2 rounded-xl border transition-all ${
+              type="button"
+              onClick={cycleTheme}
+              className={`group relative flex items-center gap-2 px-3 py-2 rounded-xl border transition-all ${
                 isDarkMode 
                   ? 'bg-zinc-900/50 border-zinc-800 hover:border-cyan-500/50' 
                   : 'bg-white/50 border-gray-200 hover:border-cyan-500/50'
               }`}
+              aria-label={`Current theme: ${getThemeLabel()}. Click to cycle.`}
+              title={`Theme: ${getThemeLabel()} (Click to cycle)`}
             >
-              {isDarkMode ? (
-                <Sun size={20} className="text-cyan-400" />
-              ) : (
-                <Moon size={20} className="text-violet-600" />
-              )}
+              <motion.div
+                key={themeMode}
+                initial={{ scale: 0.8, opacity: 0, rotate: -90 }}
+                animate={{ scale: 1, opacity: 1, rotate: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {getThemeIcon()}
+              </motion.div>
+              <span className={`text-xs font-medium hidden sm:block ${
+                isDarkMode ? 'text-zinc-400 group-hover:text-cyan-400' : 'text-gray-600 group-hover:text-cyan-600'
+              }`}>
+                {getThemeLabel()}
+              </span>
+              
+              {/* Tooltip for cycling hint */}
+              <div className={`absolute top-full right-0 mt-2 px-3 py-2 rounded-lg text-xs whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none ${
+                isDarkMode 
+                  ? 'bg-zinc-900 border border-zinc-800 text-zinc-400' 
+                  : 'bg-white border border-gray-200 text-gray-600 shadow-lg'
+              }`}>
+                Click to cycle: Dark → Light → System
+              </div>
             </button>
           </div>
         </div>

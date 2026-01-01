@@ -1,25 +1,23 @@
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'OptionsSurface - Black-Scholes Greeks Visualizer',
-  description: 'Interactive 3D options pricing calculator with real-time Greeks, volatility surfaces, and multi-leg strategy builder using Black-Scholes model.',
-  keywords: ['options', 'black-scholes', 'greeks', 'volatility surface', 'options calculator', 'delta', 'gamma', 'theta', 'vega', 'finance'],
+  title: "OptionsSurface - Options Analytics & Visualization",
+  description: "Advanced options analytics powered by Black-Scholes mathematics and real-time 3D visualization. Calculate Greeks, visualize volatility surfaces, and analyze multi-leg strategies.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body className="antialiased">
-        {children}
+      <body>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

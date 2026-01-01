@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, TrendingUp, Box, Layers, Sparkles, Zap, Activity } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
 import Header from '@/components/Header';
 import OptionCalculator from '@/components/OptionCalculator';
 import GreeksDisplay from '@/components/GreeksDisplay';
@@ -10,9 +11,10 @@ import Surface3D from '@/components/Surface3D';
 import PayoffChart from '@/components/PayoffChart';
 import StrategyBuilder from '@/components/StrategyBuilder';
 import { OptionParams, blackScholes, calculateGreeks } from '@/lib/blackScholes';
+import Footer from '@/components/Footer';
 
 export default function Home() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode } = useTheme();
   const [params, setParams] = useState<OptionParams>({
     S: 100,
     K: 100,
@@ -49,7 +51,7 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <Header isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Header />
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
@@ -252,48 +254,7 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className={`border-t backdrop-blur-xl mt-20 transition-colors duration-300 ${
-        isDarkMode ? 'border-zinc-800/50 bg-black/40' : 'border-gray-200/50 bg-white/40'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
-                  <Sparkles className="text-white" size={20} />
-                </div>
-                <span className="font-bold text-gradient">OptionsSurface</span>
-              </div>
-              <p className={`text-sm leading-relaxed ${
-                isDarkMode ? 'text-zinc-500' : 'text-gray-600'
-              }`}>
-                Advanced options analytics powered by Black-Scholes mathematics and real-time 3D visualization.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className={`font-semibold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>Resources</h4>
-              <ul className={`space-y-2 text-sm ${isDarkMode ? 'text-zinc-500' : 'text-gray-600'}`}>
-                <li><a href="/docs" className={`transition-colors ${
-                  isDarkMode ? 'hover:text-cyan-400' : 'hover:text-cyan-600'
-                }`}>Documentation</a></li>
-                <li><a href="https://github.com/azee-ka/options-greeks-visualizer" target="_blank" rel="noopener noreferrer" className={`transition-colors ${
-                  isDarkMode ? 'hover:text-cyan-400' : 'hover:text-cyan-600'
-                }`}>GitHub</a></li>
-                <li><a href="/docs#tutorials" className={`transition-colors ${
-                  isDarkMode ? 'hover:text-cyan-400' : 'hover:text-cyan-600'
-                }`}>Tutorials</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className={`mt-12 pt-8 border-t text-center text-sm ${
-            isDarkMode ? 'border-zinc-800/50 text-zinc-600' : 'border-gray-200/50 text-gray-500'
-          }`}>
-            <p>© 2025 OptionsSurface. Built with React, Three.js, and Black-Scholes mathematics.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer isDarkMode={isDarkMode} />
     </div>
   );
 }
