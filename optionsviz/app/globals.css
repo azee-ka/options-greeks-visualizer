@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  
+  --color-zinc-950: #09090b;
+  --color-zinc-900: #18181b;
+  --color-zinc-800: #27272a;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-600: #52525b;
+  --color-zinc-500: #71717a;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-300: #d4d4d8;
+  --color-zinc-200: #e4e4e7;
+  --color-zinc-100: #f4f4f5;
+}
+
+@layer base {
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+  body {
+    background-color: #000000;
+    background-image: 
+      radial-gradient(ellipse at top, rgba(6, 182, 212, 0.15), transparent 50%),
+      radial-gradient(ellipse at bottom, rgba(139, 92, 246, 0.1), transparent 50%);
+    background-attachment: fixed;
+    color: #f4f4f5;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer components {
+  /* Neo Cards */
+  .neo-card {
+    position: relative;
+    background-color: rgba(9, 9, 11, 0.4);
+    backdrop-filter: blur(24px);
+    border-radius: 1rem;
+    border: 1px solid rgba(39, 39, 42, 0.5);
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+      0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .neo-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+  }
+
+  .neo-card:hover::before {
+    opacity: 1;
+  }
+
+  /* Inputs */
+  .neo-input {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid #27272a;
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    color: #f4f4f5;
+    transition: all 0.3s;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+
+  .neo-input::placeholder {
+    color: #52525b;
+  }
+
+  .neo-input:focus {
+    outline: none;
+    border-color: rgba(6, 182, 212, 0.5);
+    box-shadow: 
+      0 0 0 1px rgba(6, 182, 212, 0.3) inset,
+      0 0 20px rgba(6, 182, 212, 0.1),
+      0 0 0 3px rgba(6, 182, 212, 0.1);
+  }
+
+  /* Buttons */
+  .neo-btn-primary {
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    background: linear-gradient(to right, #06b6d4, #8b5cf6);
+    color: white;
+    overflow: hidden;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .neo-btn-primary:hover {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.3);
+  }
+
+  .neo-btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .neo-btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    color: #22d3ee;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .neo-btn-secondary:hover {
+    background-color: rgba(6, 182, 212, 0.1);
+    border-color: #22d3ee;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+  }
+
+  .neo-btn-secondary:active {
+    transform: scale(0.95);
+  }
+
+  /* Badge */
+  .neo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(39, 39, 42, 0.7);
+    font-size: 0.75rem;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+  }
+
+  /* Number Display */
+  .neo-number {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.025em;
+  }
+
+  /* Text Gradient */
+  .text-gradient {
+    background: linear-gradient(to right, #22d3ee, #a78bfa, #e879f9);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Neon Text */
+  .neon-text {
+    color: #22d3ee;
+    text-shadow: 
+      0 0 10px rgba(6, 182, 212, 0.5),
+      0 0 20px rgba(6, 182, 212, 0.3),
+      0 0 30px rgba(6, 182, 212, 0.1);
+  }
+
+  /* Metric Card */
+  .metric-card {
+    position: relative;
+    background-color: rgba(9, 9, 11, 0.4);
+    backdrop-filter: blur(24px);
+    border-radius: 1rem;
+    border: 1px solid rgba(39, 39, 42, 0.5);
+    padding: 1.25rem;
+    overflow: hidden;
+  }
+
+  .metric-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0.2;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.3), transparent 70%);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(6, 182, 212, 0.2);
+  color: #67e8f9;
+}
+
+/* Range Inputs */
+input[type="range"] {
+  width: 100%;
+  height: 0.5rem;
+  background: #18181b;
+  border-radius: 0.5rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: linear-gradient(to right, #22d3ee, #a78bfa);
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: linear-gradient(to right, #22d3ee, #a78bfa);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.5);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
