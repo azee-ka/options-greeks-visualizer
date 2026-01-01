@@ -143,12 +143,27 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
           </div>
           <div className="flex gap-3">
             <button
-              onClick={() => setShowTemplates(!showTemplates)}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setShowTemplates(!showTemplates);
+              }}
               className={isDarkMode ? 'neo-btn-secondary' : 'neo-btn-secondary-light'}
+              style={{ position: 'relative', zIndex: 2 }}
             >
               {showTemplates ? 'Hide' : 'Show'} Templates
             </button>
-            <button onClick={addLeg} className="neo-btn-primary flex items-center gap-2">
+            <button 
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                addLeg();
+              }} 
+              className="neo-btn-primary flex items-center gap-2"
+              style={{ position: 'relative', zIndex: 2 }}
+            >
               <Plus size={16} />
               Add Leg
             </button>
@@ -166,10 +181,16 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
               {STRATEGY_TEMPLATES.map((template, index) => (
                 <button
                   key={index}
-                  onClick={() => loadTemplate(index)}
-                  className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-5 text-left space-y-3 transition-all group ${
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    loadTemplate(index);
+                  }}
+                  className={`neo-card ${isDarkMode ? '' : 'neo-card-light'} p-5 text-left space-y-3 transition-all group cursor-pointer ${
                     isDarkMode ? 'hover:border-violet-500/30' : 'hover:border-violet-500/40'
                   }`}
+                  style={{ position: 'relative', zIndex: 2 }}
                 >
                   <div className="flex items-center justify-between">
                     <div className={`font-semibold text-sm group-hover:text-violet-400 transition-colors ${
@@ -217,25 +238,37 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
                       }`}>#{index + 1}</span>
                       <div className={`flex gap-2 p-1 rounded-lg border ${
                         isDarkMode ? 'bg-black/60 border-zinc-800' : 'bg-white/60 border-gray-200'
-                      }`}>
+                      }`} style={{ zIndex: 10 }}>
                         <button
-                          onClick={() => updateLeg(index, { type: 'call' })}
-                          className={`px-3 py-1.5 rounded text-xs font-semibold transition-all ${
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            updateLeg(index, { type: 'call' });
+                          }}
+                          className={`px-3 py-1.5 rounded text-xs font-semibold transition-all cursor-pointer ${
                             leg.type === 'call'
                               ? 'bg-emerald-500 text-white'
                               : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                           }`}
+                          style={{ zIndex: 11 }}
                         >
                           <TrendingUp size={12} className="inline mr-1" />
                           Call
                         </button>
                         <button
-                          onClick={() => updateLeg(index, { type: 'put' })}
-                          className={`px-3 py-1.5 rounded text-xs font-semibold transition-all ${
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            updateLeg(index, { type: 'put' });
+                          }}
+                          className={`px-3 py-1.5 rounded text-xs font-semibold transition-all cursor-pointer ${
                             leg.type === 'put'
                               ? 'bg-rose-500 text-white'
                               : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                           }`}
+                          style={{ zIndex: 11 }}
                         >
                           <TrendingDown size={12} className="inline mr-1" />
                           Put
@@ -243,8 +276,14 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
                       </div>
                     </div>
                     <button
-                      onClick={() => removeLeg(index)}
-                      className="p-2 rounded-lg text-rose-400 hover:bg-rose-500/10 transition-all"
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        removeLeg(index);
+                      }}
+                      className="p-2 rounded-lg text-rose-400 hover:bg-rose-500/10 transition-all cursor-pointer"
+                      style={{ position: 'relative', zIndex: 2 }}
                     >
                       <Trash2 size={16} />
                     </button>
@@ -260,6 +299,7 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
                         value={leg.K}
                         onChange={(e) => updateLeg(index, { K: parseFloat(e.target.value) })}
                         className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full text-sm`}
+                        style={{ position: 'relative', zIndex: 2 }}
                       />
                     </div>
                     <div>
@@ -271,6 +311,7 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
                         value={leg.T.toFixed(3)}
                         onChange={(e) => updateLeg(index, { T: parseFloat(e.target.value) })}
                         className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full text-sm`}
+                        style={{ position: 'relative', zIndex: 2 }}
                         step="0.01"
                       />
                     </div>
@@ -283,6 +324,7 @@ export default function StrategyBuilder({ baseParams, isDarkMode }: StrategyBuil
                         value={leg.quantity}
                         onChange={(e) => updateLeg(index, { quantity: parseInt(e.target.value) })}
                         className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full text-sm`}
+                        style={{ position: 'relative', zIndex: 2 }}
                       />
                     </div>
                     <div>

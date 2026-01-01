@@ -112,12 +112,18 @@ export default function Home() {
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`relative px-6 py-4 font-semibold text-sm transition-all ${
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setActiveTab(tab.id as any);
+                }}
+                className={`relative px-6 py-4 font-semibold text-sm transition-all cursor-pointer ${
                   activeTab === tab.id
                     ? 'text-cyan-400'
                     : isDarkMode ? 'text-zinc-400 hover:text-zinc-300' : 'text-gray-600 hover:text-gray-900'
                 }`}
+                style={{ position: 'relative', zIndex: 2 }}
               >
                 <div className="flex items-center gap-2">
                   <tab.icon size={16} />
@@ -127,7 +133,7 @@ export default function Home() {
                   <motion.div
                     layoutId="activeTab"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-400 to-violet-400"
-                    style={{ boxShadow: '0 0 10px rgba(6, 182, 212, 0.5)' }}
+                    style={{ boxShadow: '0 0 10px rgba(6, 182, 212, 0.5)', pointerEvents: 'none' }}
                   />
                 )}
               </button>
@@ -206,6 +212,7 @@ export default function Home() {
                       step="1"
                       value={params.sigma * 100}
                       onChange={(e) => setParams({ ...params, sigma: parseFloat(e.target.value) / 100 })}
+                      style={{ position: 'relative', zIndex: 2 }}
                     />
                   </div>
                   <div className="space-y-3">
@@ -222,6 +229,7 @@ export default function Home() {
                       step="1"
                       value={params.S}
                       onChange={(e) => setParams({ ...params, S: parseFloat(e.target.value) })}
+                      style={{ position: 'relative', zIndex: 2 }}
                     />
                   </div>
                 </div>

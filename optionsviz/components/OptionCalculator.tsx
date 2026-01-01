@@ -31,27 +31,39 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
         </div>
         
         {/* Call/Put Toggle */}
-        <div className={`flex gap-2 p-1 rounded-xl border ${
+        <div className={`relative flex gap-2 p-1 rounded-xl border ${
           isDarkMode ? 'bg-black/60 border-zinc-800' : 'bg-white/60 border-gray-200'
-        }`}>
+        }`} style={{ zIndex: 10 }}>
           <button
-            onClick={() => handleChange('type', 'call')}
-            className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 ${
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleChange('type', 'call');
+            }}
+            className={`relative px-6 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 cursor-pointer ${
               params.type === 'call'
                 ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-white shadow-[0_0_20px_rgba(16,185,129,0.3)]'
-                : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                : isDarkMode ? 'text-zinc-400 hover:text-white hover:bg-zinc-800/50' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'
             }`}
+            style={{ zIndex: 11 }}
           >
             <TrendingUp size={16} />
             Call
           </button>
           <button
-            onClick={() => handleChange('type', 'put')}
-            className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 ${
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleChange('type', 'put');
+            }}
+            className={`relative px-6 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center gap-2 cursor-pointer ${
               params.type === 'put'
                 ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-[0_0_20px_rgba(244,63,94,0.3)]'
-                : isDarkMode ? 'text-zinc-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                : isDarkMode ? 'text-zinc-400 hover:text-white hover:bg-zinc-800/50' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100/50'
             }`}
+            style={{ zIndex: 11 }}
           >
             <TrendingDown size={16} />
             Put
@@ -73,12 +85,13 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             <span className="neo-number text-cyan-400 text-lg">${params.S.toFixed(2)}</span>
           </label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 font-mono">$</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 font-mono pointer-events-none" style={{ zIndex: 1 }}>$</span>
             <input
               type="number"
               value={params.S}
               onChange={(e) => handleChange('S', parseFloat(e.target.value) || 0)}
               className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full pl-10`}
+              style={{ position: 'relative', zIndex: 2 }}
               step="0.01"
             />
           </div>
@@ -90,6 +103,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={params.S}
             onChange={(e) => handleChange('S', parseFloat(e.target.value))}
             className="w-full"
+            style={{ position: 'relative', zIndex: 2 }}
           />
         </div>
 
@@ -105,12 +119,13 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             <span className="neo-number text-violet-400 text-lg">${params.K.toFixed(2)}</span>
           </label>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-violet-400 font-mono">$</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-violet-400 font-mono pointer-events-none" style={{ zIndex: 1 }}>$</span>
             <input
               type="number"
               value={params.K}
               onChange={(e) => handleChange('K', parseFloat(e.target.value) || 0)}
               className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full pl-10`}
+              style={{ position: 'relative', zIndex: 2 }}
               step="0.01"
             />
           </div>
@@ -122,6 +137,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={params.K}
             onChange={(e) => handleChange('K', parseFloat(e.target.value))}
             className="w-full"
+            style={{ position: 'relative', zIndex: 2 }}
           />
         </div>
 
@@ -141,6 +157,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={(params.sigma * 100).toFixed(1)}
             onChange={(e) => handleChange('sigma', parseFloat(e.target.value) / 100 || 0)}
             className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full`}
+            style={{ position: 'relative', zIndex: 2 }}
             step="0.1"
             min="0.1"
             max="200"
@@ -153,6 +170,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={params.sigma * 100}
             onChange={(e) => handleChange('sigma', parseFloat(e.target.value) / 100)}
             className="w-full"
+            style={{ position: 'relative', zIndex: 2 }}
           />
         </div>
 
@@ -172,6 +190,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={params.T.toFixed(3)}
             onChange={(e) => handleChange('T', parseFloat(e.target.value) || 0)}
             className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full`}
+            style={{ position: 'relative', zIndex: 2 }}
             step="0.01"
             min="0.01"
             max="2"
@@ -184,6 +203,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={params.T}
             onChange={(e) => handleChange('T', parseFloat(e.target.value))}
             className="w-full"
+            style={{ position: 'relative', zIndex: 2 }}
           />
         </div>
 
@@ -203,6 +223,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={(params.r * 100).toFixed(2)}
             onChange={(e) => handleChange('r', parseFloat(e.target.value) / 100 || 0)}
             className={`neo-input ${isDarkMode ? '' : 'neo-input-light'} w-full`}
+            style={{ position: 'relative', zIndex: 2 }}
             step="0.01"
             min="0"
             max="20"
@@ -215,6 +236,7 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             value={params.r * 100}
             onChange={(e) => handleChange('r', parseFloat(e.target.value) / 100)}
             className="w-full"
+            style={{ position: 'relative', zIndex: 2 }}
           />
         </div>
 
@@ -233,17 +255,23 @@ export default function OptionCalculator({ params, onChange, isDarkMode }: Optio
             ].map((preset) => (
               <button
                 key={preset.label}
-                onClick={() => onChange({
-                  S: preset.S,
-                  K: preset.K,
-                  T: 0.25,
-                  r: 0.05,
-                  sigma: 0.20,
-                  type: params.type
-                })}
-                className={`flex-1 py-2 text-xs ${
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onChange({
+                    S: preset.S,
+                    K: preset.K,
+                    T: 0.25,
+                    r: 0.05,
+                    sigma: 0.20,
+                    type: params.type
+                  });
+                }}
+                className={`flex-1 py-2 text-xs cursor-pointer ${
                   isDarkMode ? 'neo-btn-secondary' : 'neo-btn-secondary-light'
                 }`}
+                style={{ position: 'relative', zIndex: 2 }}
               >
                 {preset.label}
               </button>
