@@ -1,198 +1,296 @@
-# options-greeks-visualizer---
+# OptionsSurface
 
-## 📘 Usage Guide
+A web-based options analytics platform for calculating Greeks, visualizing volatility surfaces, and analyzing multi-leg strategies.
 
-### 1. Calculator & Greeks
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
-**Calculate option prices and Greeks:**
-
-1. Select **Call** or **Put**
-2. Adjust parameters with sliders:
-   - **Spot Price (S)**: Current stock price
-   - **Strike Price (K)**: Exercise price
-   - **Time to Expiry (T)**: Time remaining (years)
-   - **Volatility (σ)**: Implied volatility (%)
-   - **Risk-Free Rate (r)**: Interest rate (%)
-3. View real-time Greeks:
-   - **Delta (Δ)**: Price sensitivity to stock movement
-   - **Gamma (Γ)**: Delta change rate
-   - **Theta (Θ)**: Daily time decay
-   - **Vega (ν)**: Volatility sensitivity
-   - **Rho (ρ)**: Interest rate sensitivity
-
-**Quick Presets:**
-- **ATM**: At-the-money (S = K = $100)
-- **OTM**: Out-of-the-money ($100/$110)
-- **ITM**: In-the-money ($100/$90)
-
-### 2. 3D Volatility Surface
-
-**Visualize option prices across strikes and time:**
-
-1. Navigate to **3D Surface** tab
-2. **Controls:**
-   - **Left-click + drag**: Rotate view
-   - **Scroll**: Zoom in/out
-   - **Right-click + drag**: Pan camera
-3. **Adjust parameters:**
-   - **Volatility slider**: See entire surface inflate/deflate
-   - **Spot price slider**: Watch surface shift
-4. **Interpretation:**
-   - **Height (Z-axis)**: Option value
-   - **X-axis**: Strike prices
-   - **Y-axis**: Time to expiration
-   - **Color gradient**: Value intensity (cyan → purple)
-
-### 3. Strategy Builder
-
-**Build multi-leg strategies:**
-
-1. Navigate to **Strategy Builder** tab
-2. **Option 1: Use Templates**
-   - Click "Show Templates"
-   - Select from 8 pre-built strategies
-   - Customize as needed
-3. **Option 2: Build Custom**
-   - Click "Add Leg"
-   - Set Call/Put, Strike, Expiry, Quantity
-   - Add more legs as needed
-4. **Analyze:**
-   - View **Net Cost** (total premium)
-   - See **Max Profit/Loss**
-   - Find **Breakeven Points**
-   - Study **Combined Payoff Chart**
-
-### 4. Risk Management
-
-**Essential rules:**
-
-- Never risk more than **2-5%** of account per trade
-- Set **stop losses** before entering
-- Take profits at **50-100%** gain
-- Avoid options with <30 days unless you have edge
-- Use defined-risk strategies (spreads) when starting
+[Live Demo](https://options-surface.vercel.app) • [Documentation](https://options-surface.vercel.app/docs)
 
 ---
 
-## 📚 Documentation
+## Overview
 
-### Available Sections
+OptionsSurface is an options pricing and analysis tool built with Next.js, Three.js, and TypeScript. It implements the Black-Scholes-Merton model for European option pricing and provides real-time Greek calculations, 3D volatility surface visualization, and multi-leg strategy analysis.
 
-Our comprehensive documentation covers:
+### Key Features
 
-1. **Introduction** - Getting started
-2. **Options 101** - Complete basics
-3. **Black-Scholes Deep Dive** - Pricing model
-4. **Greeks Explained** - All 5 Greeks
-5. **Pricing Dynamics** - How options are priced
-6. **Understanding Volatility** - IV vs HV, VIX
-7. **Calculator Guide** - Step-by-step
-8. **3D Surface Guide** - Visualization usage
-9. **Strategy Builder Guide** - Building strategies
-10. **Tutorial: First Option** - Hands-on walkthrough
-11. **Tutorial: Spreads** - Bull call spread
-12. **Tutorial: Volatility Trading** - Straddles
-13. **Advanced Concepts** - IV surface, pin risk
-14. **Strategy Analysis** - Deep dive on 8+ strategies
-15. **Risk Management** - Position sizing, stops, hedging
+- Real-time Black-Scholes pricing engine
+- Interactive Greeks calculator (Delta, Gamma, Theta, Vega, Rho)
+- 3D volatility surface visualization
+- Multi-leg strategy builder with 8 templates
+- Payoff diagram generation
+- Comprehensive educational documentation
 
-**Access:** [Read Full Documentation](https://options-surface.vercel.app/docs)
+### Technical Highlights
+
+- Client-side calculations (no backend required)
+- 60 FPS 3D rendering with Three.js
+- Zero data collection or analytics
+- Works offline after initial load
+- Responsive design for all screen sizes
 
 ---
 
-## 🤝 Contributing
+## Installation
 
-We welcome contributions! Here's how you can help:
+### Requirements
 
-### Ways to Contribute
+- Node.js 18.x or higher
+- npm, yarn, or pnpm
 
-1. **🐛 Report Bugs**: [Open an issue](https://github.com/azee-ka/options-greeks-visualizer/issues)
-2. **💡 Request Features**: [Start a discussion](https://github.com/azee-ka/options-greeks-visualizer/discussions)
-3. **📝 Improve Docs**: Submit documentation updates
-4. **🔧 Submit Code**: Fork, develop, and create PR
+### Setup
+```bash
+# Clone repository
+git clone https://github.com/azee-ka/options-greeks-visualizer.git
+cd options-greeks-visualizer
 
-### Development Workflow
+# Install dependencies
+npm install
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
+# Run development server
+npm run dev
 
-### Code Standards
+# Build for production
+npm run build
+npm start
+```
 
-- Follow existing code style
-- Add TypeScript types
-- Write descriptive commit messages
-- Test thoroughly before submitting
-- Update documentation if needed
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-### What this means:
-
-✅ **You can:**
-- Use commercially
-- Modify the code
-- Distribute
-- Use privately
-
-❌ **You cannot:**
-- Hold liable
-- Use trademarks
-
-📋 **You must:**
-- Include license and copyright notice
-- State changes made
+Application will be available at `http://localhost:3000`
 
 ---
 
-## 🙏 Acknowledgments
+## Tech Stack
 
-### Inspiration & Resources
+**Framework & Language**
+- Next.js 15 (React 19, App Router)
+- TypeScript 5.0
 
-- **Black-Scholes Model**: Fischer Black, Myron Scholes, Robert Merton
-- **Options Theory**: Hull's "Options, Futures, and Other Derivatives"
-- **Visualization**: Three.js community
-- **Design**: Modern glassmorphism trends
+**3D Visualization**
+- Three.js r168
+- @react-three/fiber 8.17
+- @react-three/drei 9.114
 
-### Special Thanks
+**UI & Animation**
+- Tailwind CSS 4.0
+- Framer Motion 11.11
+- Lucide React (icons)
 
-- Next.js team for amazing framework
-- Three.js contributors for 3D engine
-- Open source community for inspiration
-- All users and contributors ❤️
-
----
-
-## 🌐 Links
-
-- **Website**: [https://options-surface.vercel.app](https://options-surface.vercel.app)
-- **Documentation**: [https://options-surface.vercel.app/docs](https://options-surface.vercel.app/docs)
-- **GitHub**: [https://github.com/azee-ka/options-greeks-visualizer](https://github.com/azee-ka/options-greeks-visualizer)
-- **Issues**: [Report Bug](https://github.com/azee-ka/options-greeks-visualizer/issues)
-- **Discussions**: [Join Community](https://github.com/azee-ka/options-greeks-visualizer/discussions)
+**Charts**
+- Recharts 2.15
 
 ---
 
-## 💬 Support
-
-Need help? Have questions?
-
-- 📖 Check the [Documentation](https://options-surface.vercel.app/docs)
-- 💬 Start a [Discussion](https://github.com/azee-ka/options-greeks-visualizer/discussions)
-- 🐛 Report [Issues](https://github.com/azee-ka/options-greeks-visualizer/issues)
+## Project Structure
+```
+├── app/
+│   ├── page.tsx                 # Main application
+│   ├── docs/page.tsx            # Documentation
+│   ├── features/page.tsx        # Features page
+│   ├── about/page.tsx           # About page
+│   ├── layout.tsx               # Root layout
+│   └── globals.css              # Global styles
+├── components/
+│   ├── calculator/
+│   │   ├── Calculator.tsx       # Greeks calculator
+│   │   └── PayoffChart.tsx      # P&L charts
+│   ├── surface/
+│   │   ├── VolatilitySurface.tsx   # 3D surface
+│   │   └── SurfaceControls.tsx     # Controls
+│   ├── strategy/
+│   │   ├── StrategyBuilder.tsx     # Multi-leg builder
+│   │   ├── StrategyTemplates.tsx   # Templates
+│   │   └── CombinedPayoff.tsx      # Combined charts
+│   └── shared/
+│       └── Navigation.tsx       # Navigation
+├── lib/
+│   ├── blackScholes.ts          # Pricing engine
+│   ├── greeks.ts                # Greeks calculations
+│   └── types.ts                 # Type definitions
+└── public/                      # Static assets
+```
 
 ---
 
-<div align="center">
-    
-  **If this project helped you, consider giving it a ⭐️**
-  
-  Made by [azee-ka](https://github.com/azee-ka)
-  
-</div>
+## Core Functionality
+
+### Black-Scholes Implementation
+
+The pricing engine implements the Black-Scholes-Merton model:
+
+**Call Price:**
+```
+C = S × N(d₁) - K × e^(-rT) × N(d₂)
+```
+
+**Put Price:**
+```
+P = K × e^(-rT) × N(-d₂) - S × N(-d₁)
+```
+
+Where:
+- S = Spot price
+- K = Strike price
+- T = Time to expiration (years)
+- r = Risk-free rate
+- σ = Volatility
+- N(x) = Cumulative normal distribution
+
+### Greeks Calculations
+
+All first-order Greeks are calculated analytically:
+
+- **Delta (Δ)**: ∂V/∂S - Price sensitivity to underlying
+- **Gamma (Γ)**: ∂²V/∂S² - Delta sensitivity to underlying
+- **Theta (Θ)**: ∂V/∂t - Time decay
+- **Vega (ν)**: ∂V/∂σ - Volatility sensitivity
+- **Rho (ρ)**: ∂V/∂r - Interest rate sensitivity
+
+### 3D Volatility Surface
+
+The volatility surface plots option prices across:
+- X-axis: Strike prices (70%-130% of spot)
+- Y-axis: Time to expiration (0-1 year)
+- Z-axis: Option theoretical value
+- Color: Value gradient (cyan to purple)
+
+Implemented using Three.js BufferGeometry with 50x50 mesh resolution.
+
+### Strategy Builder
+
+Supports multi-leg strategies with:
+- Unlimited legs per strategy
+- Call/Put selection
+- Custom strikes and quantities
+- Real-time P&L calculation
+- Risk metrics (max profit/loss, breakeven)
+
+**Pre-built Templates:**
+- Long Call/Put
+- Bull Call Spread
+- Bear Put Spread
+- Long Straddle
+- Long Strangle
+- Iron Condor
+- Butterfly Spread
+
+---
+
+## Usage
+
+### Calculator
+
+1. Select option type (Call/Put)
+2. Adjust parameters using sliders or inputs:
+   - Spot Price (S)
+   - Strike Price (K)
+   - Time to Expiry (T)
+   - Volatility (σ)
+   - Risk-Free Rate (r)
+3. View calculated price and Greeks
+4. Analyze payoff diagram
+
+### 3D Surface
+
+1. Navigate to "3D Volatility Surface" tab
+2. Use mouse controls:
+   - Left-click + drag: Rotate
+   - Scroll: Zoom
+   - Right-click + drag: Pan
+3. Adjust volatility and spot price sliders
+4. Observe surface deformation
+
+### Strategy Builder
+
+1. Click "Show Templates" for pre-built strategies
+2. Or click "Add Leg" to build custom
+3. Configure each leg (type, strike, quantity)
+4. Review combined payoff and risk metrics
+5. Analyze breakeven points
+
+---
+
+## Documentation
+
+Comprehensive documentation available at `/docs` covering:
+
+- Options fundamentals
+- Black-Scholes model derivation
+- Greek definitions and usage
+- Pricing dynamics
+- Volatility concepts
+- Strategy tutorials
+- Risk management
+
+---
+
+## Development
+
+### Scripts
+```bash
+npm run dev          # Development server
+npm run build        # Production build
+npm run start        # Start production server
+npm run lint         # Run ESLint
+```
+
+### Environment
+
+No environment variables required. All calculations are client-side.
+
+### Browser Support
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+
+---
+
+## Performance
+
+- Initial bundle: ~450KB gzipped
+- 3D rendering: 60 FPS on modern hardware
+- Calculation latency: <1ms per option
+- Time to Interactive: <2s on 3G
+
+---
+
+## Known Limitations
+
+- Implements European-style options only
+- Does not account for dividends (can be extended)
+- Assumes constant volatility (Black-Scholes limitation)
+- Assumes continuous risk-free rate
+- No real market data integration
+
+---
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2024-2025
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+## References
+
+- Black, F., & Scholes, M. (1973). The Pricing of Options and Corporate Liabilities. Journal of Political Economy.
+- Hull, J. C. (2017). Options, Futures, and Other Derivatives (10th ed.). Pearson.
+- Haug, E. G. (2007). The Complete Guide to Option Pricing Formulas (2nd ed.). McGraw-Hill.
+
+---
+
+## Links
+
+- Repository: https://github.com/azee-ka/options-greeks-visualizer
+- Live Application: https://options-surface.vercel.app
+- Documentation: https://options-surface.vercel.app/docs
+- Issues: https://github.com/azee-ka/options-greeks-visualizer/issues

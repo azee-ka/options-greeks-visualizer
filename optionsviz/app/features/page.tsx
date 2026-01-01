@@ -231,25 +231,25 @@ export default function FeaturesPage() {
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm mb-6">
-              <Sparkles size={16} />
-              <span>Professional Options Analytics</span>
-            </div>
-            <h1 className="text-6xl md:text-7xl font-bold mb-6">
-              <span className="text-gradient">Everything You Need</span>
-              <br />
-              <span className="text-white">To Master Options</span>
-            </h1>
-            <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
-              From real-time Greeks to 3D volatility surfaces, OptionsSurface provides institutional-grade tools in a beautiful, easy-to-use interface.
-            </p>
-          </motion.div>
+        <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  className="text-center mb-16"
+>
+  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm mb-6">
+    <Sparkles size={16} />
+    <span>Professional Options Analytics</span>
+  </div>
+  <h1 className="text-6xl md:text-7xl font-bold mb-6">
+    <span className="text-gradient">Everything You Need</span>
+    <br />
+    <span className="text-white">To Master Options</span>
+  </h1>
+  <p className="text-xl text-zinc-400 max-w-3xl mx-auto leading-relaxed">
+    Real-time Greeks calculation, 3D volatility surfaces, and multi-leg strategy analysis. Built with modern web technologies for institutional-grade performance.
+  </p>
+</motion.div>
 
           {/* Hero Features Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

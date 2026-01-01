@@ -184,13 +184,13 @@ export default function AboutPage() {
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-violet-500 flex items-center justify-center">
                   <Lightbulb className="text-white" size={32} />
                 </div>
-                <h2 className="text-4xl font-bold text-white">Our Mission</h2>
+                <h2 className="text-4xl font-bold text-white">Purpose</h2>
               </div>
               <p className="text-xl text-zinc-300 leading-relaxed mb-6">
                 Options trading shouldn't be reserved for Wall Street professionals. OptionsSurface democratizes access to institutional-grade analytics tools, making them free and accessible to students, traders, and developers worldwide.
               </p>
               <p className="text-lg text-zinc-400 leading-relaxed">
-                We believe in the power of visualization and education. By combining real-time calculations with stunning 3D graphics and comprehensive documentation, we help people truly understand options - not just trade them blindly.
+              OptionsSurface provides professional-grade options analytics tools as a free, open-source platform. All calculations run client-side with no data collection or account requirements.
               </p>
             </motion.div>
           </div>
