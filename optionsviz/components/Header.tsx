@@ -148,7 +148,27 @@ export default function Header() {
                 />
               )}
             </Link>
-            <Link href="/disclaimer" className="text-rose-400">Disclaimer</Link> {/* NEW */}
+            <Link 
+              href="/disclaimer" 
+              className={`text-sm font-medium transition-all relative group ${
+                isActive('/disclaimer')
+                  ? isDarkMode 
+                    ? 'text-red-400' 
+                    : 'text-amber-600'
+                  : isDarkMode 
+                    ? 'text-zinc-400 hover:text-amber-400' 
+                    : 'text-gray-600 hover:text-amber-600'
+              }`}
+            >
+              Disclaimer
+              {isActive('/disclaimer') && (
+                <motion.div
+                  layoutId="activeNav"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-red-400 to-amber-400"
+                  style={{ boxShadow: '0 0 8px rgba(6, 182, 212, 0.5)' }}
+                />
+              )}
+            </Link>
           </nav>
 
           {/* Actions */}

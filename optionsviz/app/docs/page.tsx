@@ -78,7 +78,9 @@ const categories = [
 ];
 
 export default function DocsPage() {
-    const { isDarkMode } = useTheme();
+    // const { isDarkMode } = useTheme();
+    const [isDarkMode, setIsDarkMode] = useState(true);
+
     const [activeSection, setActiveSection] = useState('intro');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
   

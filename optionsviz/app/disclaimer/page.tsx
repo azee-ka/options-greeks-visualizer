@@ -23,6 +23,7 @@ export default function DisclaimerPage() {
     {
       icon: AlertTriangle,
       title: 'Not Financial Advice',
+      iconColor: 'amber',
       content: [
         'The information provided on OptionsSurface is for educational and informational purposes only. Nothing on this platform constitutes financial advice, investment advice, trading advice, or any other sort of advice.',
         'You should not treat any of the information, calculations, visualizations, or tools as a substitute for professional financial advice from a licensed advisor.',
@@ -32,6 +33,7 @@ export default function DisclaimerPage() {
     {
       icon: Shield,
       title: 'No Warranty or Guarantee',
+      iconColor: 'cyan',
       content: [
         'OptionsSurface is provided "as is" without any representations or warranties, express or implied. We make no representations or warranties regarding the accuracy, completeness, or reliability of any information, calculations, or tools provided.',
         'The Black-Scholes model and Greeks calculations are theoretical models with known limitations. Real-world options pricing may differ significantly due to market conditions, liquidity, transaction costs, bid-ask spreads, and other factors not accounted for in these models.',
@@ -41,6 +43,7 @@ export default function DisclaimerPage() {
     {
       icon: Scale,
       title: 'Limitation of Liability',
+      iconColor: 'violet',
       content: [
         'Under no circumstances shall OptionsSurface, its developers, contributors, or affiliates be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of your use of this platform.',
         'This includes, but is not limited to, trading losses, lost profits, lost data, business interruption, or any other financial or non-financial losses resulting from the use or inability to use this platform.',
@@ -50,6 +53,7 @@ export default function DisclaimerPage() {
     {
       icon: FileText,
       title: 'Educational Purpose Only',
+      iconColor: 'emerald',
       content: [
         'OptionsSurface is designed as an educational tool to help users understand options pricing theory, Greeks, volatility surfaces, and strategy analysis.',
         'All examples, calculations, visualizations, and strategies are for illustrative and educational purposes only. They do not constitute recommendations to buy, sell, or hold any financial instrument.',
@@ -60,6 +64,7 @@ export default function DisclaimerPage() {
     {
       icon: Info,
       title: 'Accuracy and Verification',
+      iconColor: 'blue',
       content: [
         'The information, documentation, calculations, and code on OptionsSurface have not been independently verified or audited by financial professionals, mathematicians, or certified options traders.',
         'The creator is not a licensed financial advisor, certified financial planner, registered investment advisor, or professional options trader.',
@@ -74,6 +79,7 @@ export default function DisclaimerPage() {
     {
       title: 'Options Trading Risks',
       icon: AlertTriangle,
+      iconColor: 'rose',
       points: [
         'Options trading involves substantial risk and is not suitable for all investors',
         'You can lose your entire investment or more in a short period of time',
@@ -88,6 +94,7 @@ export default function DisclaimerPage() {
     {
       title: 'Platform Limitations',
       icon: XCircle,
+      iconColor: 'orange',
       points: [
         'Calculations are based on theoretical models with known and inherent limitations',
         'Does not account for transaction costs, commissions, taxes, slippage, or market impact',
@@ -103,6 +110,7 @@ export default function DisclaimerPage() {
     {
       title: 'User Responsibilities',
       icon: Shield,
+      iconColor: 'cyan',
       points: [
         'Verify all information with licensed professionals before trading real money',
         'Understand the specific risks of each strategy before implementation',
@@ -117,6 +125,19 @@ export default function DisclaimerPage() {
       ]
     }
   ];
+
+  const getIconColorClasses = (color: string, variant: 'bg' | 'text') => {
+    const colorMap: Record<string, { bg: string; text: string }> = {
+      amber: { bg: isDarkMode ? 'bg-amber-500/10' : 'bg-amber-50', text: 'text-amber-500' },
+      cyan: { bg: isDarkMode ? 'bg-cyan-500/10' : 'bg-cyan-50', text: 'text-cyan-500' },
+      violet: { bg: isDarkMode ? 'bg-violet-500/10' : 'bg-violet-50', text: 'text-violet-500' },
+      emerald: { bg: isDarkMode ? 'bg-emerald-500/10' : 'bg-emerald-50', text: 'text-emerald-500' },
+      blue: { bg: isDarkMode ? 'bg-blue-500/10' : 'bg-blue-50', text: 'text-blue-500' },
+      rose: { bg: isDarkMode ? 'bg-rose-500/10' : 'bg-rose-50', text: 'text-rose-500' },
+      orange: { bg: isDarkMode ? 'bg-orange-500/10' : 'bg-orange-50', text: 'text-orange-500' },
+    };
+    return colorMap[color]?.[variant] || '';
+  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
@@ -178,9 +199,9 @@ export default function DisclaimerPage() {
           >
             <div className="flex items-start gap-6">
               <div className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 ${
-                isDarkMode ? 'bg-zinc-800' : 'bg-white'
+                getIconColorClasses('amber', 'bg')
               }`}>
-                <AlertTriangle className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'} size={24} />
+                <AlertTriangle className={getIconColorClasses('amber', 'text')} size={24} />
               </div>
               <div className="space-y-4">
                 <h3 className={`text-xl font-medium ${
@@ -232,9 +253,9 @@ export default function DisclaimerPage() {
               >
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    isDarkMode ? 'bg-zinc-900 border border-zinc-800' : 'bg-gray-100 border border-gray-200'
+                    getIconColorClasses(section.iconColor, 'bg')
                   }`}>
-                    <Icon className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'} size={20} />
+                    <Icon className={getIconColorClasses(section.iconColor, 'text')} size={20} />
                   </div>
                   <h2 className={`text-2xl font-medium ${
                     isDarkMode ? 'text-white' : 'text-gray-900'
@@ -276,9 +297,9 @@ export default function DisclaimerPage() {
                 >
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                      isDarkMode ? 'bg-zinc-900 border border-zinc-800' : 'bg-white border border-gray-200'
+                      getIconColorClasses(note.iconColor, 'bg')
                     }`}>
-                      <Icon className={isDarkMode ? 'text-zinc-400' : 'text-gray-600'} size={20} />
+                      <Icon className={getIconColorClasses(note.iconColor, 'text')} size={20} />
                     </div>
                     <h3 className={`text-xl font-medium ${
                       isDarkMode ? 'text-white' : 'text-gray-900'
